@@ -155,5 +155,12 @@ public class Main {
 			}
 			grid.showBoard();
 		}
+<<<<<<< Updated upstream
+=======
+		if(count == 9)
+		{
+			System.out.println("Draw");
+		}
+>>>>>>> Stashed changes
 	}
 }
