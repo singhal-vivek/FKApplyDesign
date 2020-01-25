@@ -33,6 +33,46 @@ class Grid {
 			}
 			return 0;
 		}
+		boolean  row(int x,int y)
+		{
+			int p = this.board[x][y];
+			for(i=0;i<3;i++)
+			{
+				if(this.board[x][i] != p)
+					return false;
+			}
+			return true;
+
+		}
+		boolean  coloumn(int x,int y)
+		{
+			int p = this.board[x][y];
+			for(i=0;i<3;i++)
+			{
+				if(this.board[i][y] != p)
+					return false;
+			}
+			return true;
+
+		}
+		boolean dig1(int p)
+		{
+			if(this.board[0][0]==p && this.board[1][1]==p && this.board[2][2]==p)
+				return true;
+			return false;
+		}
+		boolean dig2(int p)
+		{
+			if(this.board[0][2]==p && this.board[1][1]==p && this.board[2][0]==p)
+				return true;
+			return false;
+		}
+		boolean winner(int x,int y)
+		{
+			int p = this.board[x][y];
+			return row(x,y) || coloumn(x,y) || dig1(p) || dig2(p);
+			
+		}
 }
 
 interface Player {
@@ -60,15 +100,15 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner get = new Scanner(System.in); 
 		Grid grid = new Grid();
-		Human h1 = new Human(1);
-		Human h2 = new Human(2);
+		Human h1 = new Human(0);
+		Human h2 = new Human(1);
 		grid.showBoard();
-		int flag = 1;
+		int flag = 0;
 		int count = 0;
 		while(count < 9)
 		{
 			int x,y;
-			if(flag == 1)
+			if(flag == 0)
 			{
 				System.out.println("Player_1 enter position to fill::");
 				x = get.nextInt();
@@ -76,8 +116,14 @@ public class Main {
 				if(grid.validMove(x,y)==1)
 				{
 					h1.fill(x,y,grid);
-					flag = 2;
+					flag = 1;
 					count++;
+					if(grid.winner(x,y))
+					{
+						System.out.println("Player_1 Wins");
+						grid.showBoard();
+						break;
+					}
 				}
 				else
 				{
@@ -92,8 +138,15 @@ public class Main {
 				if(grid.validMove(x,y)==1)
 				{
 					h2.fill(x,y,grid);
-					flag = 1;
+					flag = 0;
 					count++;
+
+					if(grid.winner(x,y))
+					{
+						System.out.println("Player_2 Wins");
+						grid.showBoard();
+						break;
+					}
 				}
 				else
 				{
