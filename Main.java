@@ -185,17 +185,20 @@ public class Main {
 		grid.showBoard();
 		int flag = 0;
 		int count = 0;
+		int lst=0;
 		while(count < n)
 		{
+			lst = 0;
 			int x,y;
 			int b;
 			if(flag==0)
 			{
 				System.out.println("Player_0 enter box number to fill::");
 				b = get.nextInt();
-				if(grid.box[b] == -1)
+				if(b<(n/3)*(n/3)&&grid.box[b] == -1)
 				{
 					count++;
+					lst=1;
 					int z = 0;
 					while(z<9)
 					{
@@ -258,10 +261,11 @@ public class Main {
 			{
 				System.out.println("Player_1 enter box number to fill::");
 				b = get.nextInt();
-				if(grid.box[b] == -1)
+				if(b<(n/3)*(n/3)&&grid.box[b] == -1)
 				{
 					int z = 0;
 					count++;
+					lst=1;
 					while(z<9)
 					{
 						if(flag == 0)
@@ -320,7 +324,7 @@ public class Main {
 				}
 			}
 			flag = flag ^ 1;
-			if(grid.fwinner())
+			if(lst==1&&grid.fwinner())
 			{
 				System.out.println("player"+ flag + "wins");
 				break;
