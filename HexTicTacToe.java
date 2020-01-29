@@ -36,7 +36,7 @@ class Grid {
 						System.out.print("O	");
 					}
 				}
-				System.out.println("");
+				System.out.println("\n");
 			}
 		}
 		int validMove(int a,int b)
